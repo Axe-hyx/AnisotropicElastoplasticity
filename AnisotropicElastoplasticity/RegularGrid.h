@@ -51,8 +51,8 @@ public:
 	void updateViewer();
 	int gridNumber() const { return resolution_[0] * resolution_[1] * resolution_[2]; }
 	double gridVolume() const { return h_[0] * h_[1] * h_[2]; }
-	const Eigen::Vector3d& minBound() const { return minBound_; }
-	const Eigen::Vector3d& maxBound() const { return maxBound_; }
+	const Eigen::Vector3d minBound() const { return minBound_; }
+	const Eigen::Vector3d maxBound() const { return maxBound_; }
 	const Eigen::Vector3d& h() const { return h_; }
 	const Eigen::Vector3i& resolution() const { return resolution_; }
 	const Eigen::MatrixX3d& positions() const { return positions_; }
