@@ -125,7 +125,7 @@ if("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64")
     )
 endif()
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -pthread")
-include_directories("/home/switch/reference/Simulation/AnisotropicElastoplasticity/libigl/include")
+include_directories("/home/switch/reference/Simulation/CLOTH/AnisotropicElastoplasticity/libigl/include")
 set(ADDITIONAL_LIBRARY_DEPENDENCIES
     "GL"
     "GLU"
