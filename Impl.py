@@ -1,3 +1,5 @@
+# script from https://forum.taichi.graphics/t/homework2-mpm/1087
+
 import taichi as ti
 import numpy as np
 import random
@@ -186,8 +188,10 @@ def FORCE_INCREMENT():
                 dweight = ti.Vector([ dwdx[i][0] * w[j][1], w[i][0] * dwdx[j][1] ]) * inv_dx
                 weight_1 = w_1[i][0] * w_1[j][1]
                 weight_0 = w_0[i][0] * w_0[j][1]
+                # type iii
                 f[base + offset] += -volume[p] * dphi_dF2 * dweight.dot(dp2)
                 f_vert = dphi_dF@Dp_inv1
+                # balance law
                 f[base_1 + offset] += -volume[p] * weight_1 * f_vert
                 f[base_0 + offset] += volume[p] * weight_0 * f_vert
 
