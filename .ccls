@@ -1,0 +1,10 @@
+%compile_commands.json
+clang
+%c -std=c++17
+%cpp -std=c++2a
+%h %hpp cxx-headers
+--include=/usr/local/lib/clang/3.9.0/include/stddef.h
+-I/home/switch/reference/Simulation/CLOTH/AnisotropicElastoplasticity/libigl/include
+-I/usr/local/lib/clang/10.0.0/include/
+-I/home/switch/reference/Simulation/CLOTH/AnisotropicElastoplasticity/libigl
+

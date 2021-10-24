@@ -1,0 +1,10 @@
+.ccls-cache
+AnisotropicElastoplasticity/CMakeFiles
+build
+CMake
+mesh
+libigl
+*.obj
+*.cmake
+*.json
+AnisotropicElastoplasticity/CMakeCache.txt

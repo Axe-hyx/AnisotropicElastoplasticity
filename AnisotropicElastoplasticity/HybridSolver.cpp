@@ -373,6 +373,7 @@ void HybridSolver::computeGridForces_(double Dt, MaterialType type)
 		MatrixX3d vertexInPlaneForces;
 		vector<Matrix2d> inPlanePiolaKirhoffStresses;
 
+        // typeII
 		mesh_->computeVertexInPlaneForces(vertexInPlaneForces,
 			inPlanePiolaKirhoffStresses);
 		rg_->forces += vertexOmegas_.transpose() * vertexInPlaneForces;
@@ -403,6 +404,7 @@ void HybridSolver::computeGridForces_(double Dt, MaterialType type)
 
 			//fout << "f: " << f << endl
 			//	<< R << endl;
+            // ref 2017 jiang 3.3.2 dr means \frac{\partial Psi}{\partial R}
 			const Matrix2d& inPlaneDr = inPlanePiolaKirhoffStresses[f];
 			double dr11 = inPlaneDr(0, 0);
 			double dr12 = inPlaneDr(0, 1);
@@ -426,6 +428,7 @@ void HybridSolver::computeGridForces_(double Dt, MaterialType type)
 				+ K.triangularView<Upper>().transpose().toDenseMatrix()) * R.inverse().transpose()
 				* (restDirectionMatrix.transpose()).col(2);
 
+            // type III
 			Matrix3d meshStress = mesh_->elementVolumes[f] * dF3 * directionMatrix.col(2).transpose();
 
 			meshStress_11[f] = meshStress(0, 0);
@@ -441,6 +444,8 @@ void HybridSolver::computeGridForces_(double Dt, MaterialType type)
 			meshStress_33[f] = meshStress(2, 2);
 		}
 
+        // balance law, \sigma ij, x y z direction
+        // [particle size , grid size] T * [particle size , 1]
 		rg_->forces.col(0) -= delementOmegas_1_.transpose() * meshStress_11;
 		rg_->forces.col(0) -= delementOmegas_2_.transpose() * meshStress_12;
 		rg_->forces.col(0) -= delementOmegas_3_.transpose() * meshStress_13;
@@ -452,7 +457,7 @@ void HybridSolver::computeGridForces_(double Dt, MaterialType type)
 		rg_->forces.col(2) -= delementOmegas_1_.transpose() * meshStress_31;
 		rg_->forces.col(2) -= delementOmegas_2_.transpose() * meshStress_32;
 		rg_->forces.col(2) -= delementOmegas_3_.transpose() * meshStress_33;
-	}
+    }
 
 	rg_->forces.col(2) -= rg_->masses * 9.8;
 }
@@ -980,7 +985,7 @@ void HybridSolver::solve(double CFL, double maxt, double alpha)
 				delementOmegas_2_,
 				delementOmegas_3_,
 				mesh_->elementPositions);
-		}
+    }
 		clog << "done!\n";
 
 		clog << "iterate particle to grid...";

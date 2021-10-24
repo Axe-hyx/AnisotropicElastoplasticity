@@ -440,16 +440,27 @@ void LagrangianMesh::computeVertexInPlaneForces(Eigen::MatrixX3d & vertexForces,
 			* svd.matrixV().transpose();
 		double J = refInPlaneR.diagonal().prod();
 
+        // jiang 2017 says h(R1) use two dimensional fixed corotated potential
+        // ref Stomakhin et al. [2012]
+        // see A Hybrid Material Point Method for Frictional Contact with Diverse Materials 3.1
 		Matrix2d piolaKirhoffStress = 2.0 * mu * (refInPlaneR - rotation)
 			+ lambda * (J - 1.0) * invRefMulDet.transpose();
 
+        // why multiple invRest ???, to global coordinate ???
 		inPlanePiolaKirhoffStresses[f] = invRest * piolaKirhoffStress;
 
 		double dr11 = piolaKirhoffStress(0, 0),
 			dr12 = piolaKirhoffStress(0, 1),
 			dr22 = piolaKirhoffStress(1, 1);
 
-		Vector3d f2 = -(dr11 * i11 + dr12 * i12) * q1;
+        // dr * q
+        // see
+        // https://github.com/2iw31Zhv/AnisotropicElastoplasticity/commits/ca546fc916f03d1447a92c214a4c7e51dfbc9fbf/AnisotropicElastoplasticity/LagrangianMesh.cpp
+        // top two commit
+
+        // ?? known stress of face, formula of face's three vertex force
+        // ?? stress defination, Q means direction? 
+        Vector3d f2 = -(dr11 * i11 + dr12 * i12) * q1;
 		Vector3d f3 = -dr12 * i22 * q1 - dr22 * i22 * q2;
 		Vector3d f1 = -(f2 + f3);
 
