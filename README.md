@@ -1,3 +1,5 @@
+Implementation from [3d surface](https://github.com/2iw31Zhv/AnisotropicElastoplasticity) and [2d curve](https://forum.taichi.graphics/t/homework2-mpm/1087/2)
+
 # Anisotropic Elastoplasticity
 
 Simulation of Snow, Sand, Cloth and Coupling Based on MPM Method
