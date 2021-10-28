@@ -3,7 +3,6 @@
 import taichi as ti
 import numpy as np
 import random
-ti.init(arch = ti.cuda)
 ti.reset()
 
 res = 512

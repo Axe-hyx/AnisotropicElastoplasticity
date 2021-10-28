@@ -3,7 +3,7 @@
 import taichi as ti
 import random
 
-ti.init(arch = ti.gpu)
+ti.init(arch = ti.cpu)
 
 Circle_Center = ti.Vector([0.7, 0.2])
 Circle_Radius = 0.4
