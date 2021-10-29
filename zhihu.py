@@ -336,6 +336,8 @@ def initialize():
 
 def main():
     initialize()
+    result_dir =  "./results"
+    video_manager = ti.VideoManager(output_dir=result_dir, framerate=32, automatic_build=False)
 
     randColor = [random.randint(0, 0xffffff) for i in range(N_Line)]
 
@@ -357,7 +359,10 @@ def main():
         x2_ny = x2.to_numpy()
         for li in range(N_Line):
             gui.circles(x2_ny[li* ln_type2 : (li+1)*ln_type2], radius=2, color= randColor[li])
+        video_manager.write_frame(gui.get_image())
         gui.show()
+    video_manager.make_video(gif = True, mp4 = False)
+    print(f'GIF video is saved to {video_manager.get_output_filename(".gif")}')
 
 if __name__ == "__main__":
     main()
